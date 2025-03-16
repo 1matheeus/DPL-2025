@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             txtUser = new TextBox();
             txtPassword = new TextBox();
             label1 = new Label();
             label2 = new Label();
             checkBox1 = new CheckBox();
-            pictureBox1 = new PictureBox();
+            qrcode = new PictureBox();
             label3 = new Label();
             helplink = new LinkLabel();
             logbutton = new Button();
-            linkLabel2 = new LinkLabel();
+            CreateACC = new LinkLabel();
             label4 = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)qrcode).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -51,6 +54,7 @@
             txtUser.Name = "txtUser";
             txtUser.Size = new Size(355, 36);
             txtUser.TabIndex = 0;
+            txtUser.TextChanged += txtUser_TextChanged;
             // 
             // txtPassword
             // 
@@ -61,6 +65,7 @@
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(355, 36);
             txtPassword.TabIndex = 1;
+            txtPassword.UseSystemPasswordChar = true;
             txtPassword.TextChanged += txtPassword_TextChanged;
             // 
             // label1
@@ -99,14 +104,15 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
-            // pictureBox1
+            // qrcode
             // 
-            pictureBox1.Image = Properties.Resources.qrcode_log;
-            pictureBox1.Location = new Point(436, 95);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(163, 161);
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
+            qrcode.Image = Properties.Resources.qrcode_log;
+            qrcode.Location = new Point(436, 95);
+            qrcode.Name = "qrcode";
+            qrcode.Size = new Size(163, 161);
+            qrcode.TabIndex = 5;
+            qrcode.TabStop = false;
+            qrcode.Paint += qrcode_Paint;
             // 
             // label3
             // 
@@ -132,6 +138,7 @@
             helplink.TabStop = true;
             helplink.Text = "Help, I can't sign in";
             helplink.VisitedLinkColor = Color.FromArgb(122, 122, 122);
+            helplink.LinkClicked += helplink_LinkClicked;
             // 
             // logbutton
             // 
@@ -147,19 +154,20 @@
             logbutton.Text = "Sign In";
             logbutton.UseVisualStyleBackColor = false;
             // 
-            // linkLabel2
+            // CreateACC
             // 
-            linkLabel2.ActiveLinkColor = Color.FromArgb(122, 122, 122);
-            linkLabel2.AutoSize = true;
-            linkLabel2.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabel2.LinkColor = Color.FromArgb(122, 122, 122);
-            linkLabel2.Location = new Point(529, 334);
-            linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(106, 13);
-            linkLabel2.TabIndex = 9;
-            linkLabel2.TabStop = true;
-            linkLabel2.Text = "Help, I can't sign in";
-            linkLabel2.VisitedLinkColor = Color.FromArgb(122, 122, 122);
+            CreateACC.ActiveLinkColor = Color.FromArgb(122, 122, 122);
+            CreateACC.AutoSize = true;
+            CreateACC.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CreateACC.LinkColor = Color.FromArgb(122, 122, 122);
+            CreateACC.Location = new Point(531, 334);
+            CreateACC.Name = "CreateACC";
+            CreateACC.Size = new Size(119, 13);
+            CreateACC.TabIndex = 9;
+            CreateACC.TabStop = true;
+            CreateACC.Text = "Create a Free Account";
+            CreateACC.VisitedLinkColor = Color.FromArgb(122, 122, 122);
+            CreateACC.LinkClicked += linkLabel2_LinkClicked;
             // 
             // label4
             // 
@@ -167,11 +175,21 @@
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.FromArgb(122, 122, 122);
-            label4.Location = new Point(379, 334);
+            label4.Location = new Point(380, 334);
             label4.Name = "label4";
+            label4.RightToLeft = RightToLeft.No;
             label4.Size = new Size(155, 13);
             label4.TabIndex = 10;
             label4.Text = "Don't have a Steam account?";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(-11, -27);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(295, 105);
+            pictureBox1.TabIndex = 11;
+            pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -179,18 +197,26 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(41, 41, 41);
             ClientSize = new Size(671, 372);
-            Controls.Add(linkLabel2);
+            Controls.Add(pictureBox1);
+            Controls.Add(CreateACC);
             Controls.Add(label4);
             Controls.Add(logbutton);
             Controls.Add(helplink);
             Controls.Add(label3);
-            Controls.Add(pictureBox1);
+            Controls.Add(qrcode);
             Controls.Add(checkBox1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtPassword);
             Controls.Add(txtUser);
+            MaximizeBox = false;
+            MdiChildrenMinimizedAnchorBottom = false;
+            MinimizeBox = false;
             Name = "Form1";
+            RightToLeft = RightToLeft.No;
+            ShowIcon = false;
+            SizeGripStyle = SizeGripStyle.Hide;
+            ((System.ComponentModel.ISupportInitialize)qrcode).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -203,11 +229,12 @@
         private Label label1;
         private Label label2;
         private CheckBox checkBox1;
-        private PictureBox pictureBox1;
+        private PictureBox qrcode;
         private Label label3;
         private LinkLabel helplink;
         private Button logbutton;
-        private LinkLabel linkLabel2;
+        private LinkLabel CreateACC;
         private Label label4;
+        private PictureBox pictureBox1;
     }
 }
