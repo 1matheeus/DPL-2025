@@ -1,4 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace LoginSteam
 {
@@ -7,6 +19,7 @@ namespace LoginSteam
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -26,20 +39,7 @@ namespace LoginSteam
 
         private void qrcode_Paint(object sender, PaintEventArgs e)
         {
-            PictureBox pictureBox = sender as PictureBox;
-            if (pictureBox.Image != null)
-            {
-                GraphicsPath path = new GraphicsPath();
-                int radius = 200; // Ajuste o valor do raio conforme necessário
-                path.AddArc(0, 0, radius, radius, 180, 90);
-                path.AddArc(pictureBox.Width - radius, 200, radius, radius, 270, 90);
-                path.AddArc(pictureBox.Width - radius, pictureBox.Height - radius, radius, radius, 0, 90);
-                path.AddArc(0, pictureBox.Height - radius, radius, radius, 90, 90);
-                path.CloseAllFigures();
 
-                e.Graphics.SetClip(path);
-                e.Graphics.DrawImage(pictureBox.Image, 0, 0, pictureBox.Width, pictureBox.Height);
-            }
         }
 
         private void closebutton_Click(object sender, EventArgs e)
@@ -69,6 +69,46 @@ namespace LoginSteam
         }
 
         private void txtUser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void logbutton_Click(object sender, EventArgs e)
+        {
+            //string user = txtUser.Text;
+            //string senha = txtPassword.Text;
+            string arquivo = @"C:\DPL-2025\LoginSteam\LoginSteam\dadosConta.txt";
+
+            //if (Login(user,))
+            //{
+            //  Form3 form3 = new Form3();
+            //form3.Show();
+            //sthis.Hide();
+            //}
+            Form2 form2 = new Form2(usuario, senha);
+            form2.Show();
+            this.Hide();
+        }
+        private bool Login(string user, string senha, string arquivo)
+        {
+            foreach (string linha in File.ReadAllLines(arquivo))
+            {
+                string[] partes = linha.Split(";");
+                if (partes[0] == user && partes[1] == senha)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }

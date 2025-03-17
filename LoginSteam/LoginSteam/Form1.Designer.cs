@@ -1,5 +1,24 @@
-﻿namespace LoginSteam
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+
+namespace LoginSteam
 {
+    public class GradientButton : Button
+    {
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+            Graphics g = pevent.Graphics;
+            Rectangle rect = this.ClientRectangle;
+            using (LinearGradientBrush brush = new LinearGradientBrush(rect, Color.FromArgb(84, 183, 249), Color.FromArgb(65, 116, 246), LinearGradientMode.Horizontal))
+            {
+                g.FillRectangle(brush, rect);
+            }
+            TextRenderer.DrawText(g, this.Text, this.Font, rect, this.ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+        }
+    }
+
     partial class Form1
     {
         /// <summary>
@@ -29,50 +48,54 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            txtUser = new TextBox();
-            txtPassword = new TextBox();
+            txtUserBG = new TextBox();
+            txtPasswordBG = new TextBox();
             label1 = new Label();
             label2 = new Label();
             checkBox1 = new CheckBox();
             qrcode = new PictureBox();
             label3 = new Label();
             helplink = new LinkLabel();
-            logbutton = new Button();
+            logbutton = new GradientButton();
             CreateACC = new LinkLabel();
             label4 = new Label();
             pictureBox1 = new PictureBox();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)qrcode).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // txtUser
+            // txtUserBG
             // 
-            txtUser.BackColor = Color.FromArgb(74, 74, 74);
-            txtUser.BorderStyle = BorderStyle.None;
-            txtUser.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUser.Location = new Point(31, 95);
-            txtUser.Name = "txtUser";
-            txtUser.Size = new Size(355, 36);
-            txtUser.TabIndex = 0;
-            txtUser.TextChanged += txtUser_TextChanged;
+            txtUserBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtUserBG.BorderStyle = BorderStyle.None;
+            txtUserBG.Enabled = false;
+            txtUserBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUserBG.Location = new Point(31, 95);
+            txtUserBG.Name = "txtUserBG";
+            txtUserBG.Size = new Size(355, 36);
+            txtUserBG.TabIndex = 0;
+            txtUserBG.TextChanged += txtUser_TextChanged;
             // 
-            // txtPassword
+            // txtPasswordBG
             // 
-            txtPassword.BackColor = Color.FromArgb(74, 74, 74);
-            txtPassword.BorderStyle = BorderStyle.None;
-            txtPassword.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(31, 157);
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(355, 36);
-            txtPassword.TabIndex = 1;
-            txtPassword.UseSystemPasswordChar = true;
-            txtPassword.TextChanged += txtPassword_TextChanged;
+            txtPasswordBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtPasswordBG.BorderStyle = BorderStyle.None;
+            txtPasswordBG.Enabled = false;
+            txtPasswordBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPasswordBG.Location = new Point(31, 157);
+            txtPasswordBG.Name = "txtPasswordBG";
+            txtPasswordBG.Size = new Size(355, 36);
+            txtPasswordBG.TabIndex = 1;
+            txtPasswordBG.UseSystemPasswordChar = true;
+            txtPasswordBG.TextChanged += txtPassword_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Highlight;
+            label1.ForeColor = Color.FromArgb(57, 117, 187);
             label1.Location = new Point(27, 81);
             label1.Name = "label1";
             label1.Size = new Size(172, 13);
@@ -118,7 +141,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.Highlight;
+            label3.ForeColor = Color.FromArgb(56, 109, 172);
             label3.Location = new Point(436, 81);
             label3.Name = "label3";
             label3.Size = new Size(115, 13);
@@ -142,7 +165,7 @@
             // 
             // logbutton
             // 
-            logbutton.BackColor = SystemColors.Highlight;
+            logbutton.BackColor = Color.FromArgb(73, 155, 248);
             logbutton.FlatStyle = FlatStyle.Popup;
             logbutton.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             logbutton.ForeColor = Color.White;
@@ -153,6 +176,7 @@
             logbutton.TabIndex = 8;
             logbutton.Text = "Sign In";
             logbutton.UseVisualStyleBackColor = false;
+            logbutton.Click += logbutton_Click;
             // 
             // CreateACC
             // 
@@ -187,16 +211,42 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(-11, -27);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(295, 105);
+            pictureBox1.Size = new Size(225, 105);
             pictureBox1.TabIndex = 11;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click_1;
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.FromArgb(51, 53, 59);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(38, 101);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(344, 18);
+            textBox1.TabIndex = 12;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.FromArgb(51, 53, 59);
+            textBox2.BorderStyle = BorderStyle.None;
+            textBox2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox2.ForeColor = Color.White;
+            textBox2.Location = new Point(38, 163);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(344, 18);
+            textBox2.TabIndex = 13;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(41, 41, 41);
+            BackColor = Color.FromArgb(33, 35, 40);
             ClientSize = new Size(671, 372);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(pictureBox1);
             Controls.Add(CreateACC);
             Controls.Add(label4);
@@ -207,8 +257,8 @@
             Controls.Add(checkBox1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(txtPassword);
-            Controls.Add(txtUser);
+            Controls.Add(txtPasswordBG);
+            Controls.Add(txtUserBG);
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
             MinimizeBox = false;
@@ -224,17 +274,19 @@
 
         #endregion
 
-        private TextBox txtUser;
-        private TextBox txtPassword;
+        private TextBox txtUserBG;
+        private TextBox txtPasswordBG;
         private Label label1;
         private Label label2;
         private CheckBox checkBox1;
         private PictureBox qrcode;
         private Label label3;
         private LinkLabel helplink;
-        private Button logbutton;
+        private GradientButton logbutton;
         private LinkLabel CreateACC;
         private Label label4;
         private PictureBox pictureBox1;
+        private TextBox textBox1;
+        private TextBox textBox2;
     }
 }

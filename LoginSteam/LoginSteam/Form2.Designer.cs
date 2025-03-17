@@ -1,5 +1,22 @@
-﻿namespace LoginSteam
+﻿using System.Drawing.Drawing2D;
+
+namespace LoginSteam
 {
+    public class GradientButton1 : Button
+    {
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+            Graphics g = pevent.Graphics;
+            Rectangle rect = this.ClientRectangle;
+            using (LinearGradientBrush brush = new LinearGradientBrush(rect, Color.FromArgb(84, 183, 249), Color.FromArgb(65, 116, 246), LinearGradientMode.Horizontal))
+            {
+                g.FillRectangle(brush, rect);
+            }
+            TextRenderer.DrawText(g, this.Text, this.Font, rect, this.ForeColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+        }
+    }
+
     partial class Form2
     {
         /// <summary>
@@ -30,17 +47,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             pictureBox1 = new PictureBox();
-            txtUser = new TextBox();
-            txtEmail = new TextBox();
-            txtSenha = new TextBox();
-            txtconfSenha = new TextBox();
-            criarConta = new Button();
+            txtUserBG = new TextBox();
+            txtEmailBG = new TextBox();
+            txtSenhaBG = new TextBox();
+            txtconfSenhaBG = new TextBox();
+            criarConta = new GradientButton1();
             label2 = new Label();
             label1 = new Label();
             label3 = new Label();
             label4 = new Label();
             verSenha = new CheckBox();
             pictureBox2 = new PictureBox();
+            txtconfSenha = new TextBox();
+            txtSenha = new TextBox();
+            txtEmail = new TextBox();
+            txtUser = new TextBox();
+            BackButton = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -50,51 +72,56 @@
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(-4, -27);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(235, 130);
+            pictureBox1.Size = new Size(235, 106);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
-            // txtUser
+            // txtUserBG
             // 
-            txtUser.BackColor = Color.FromArgb(74, 74, 74);
-            txtUser.BorderStyle = BorderStyle.None;
-            txtUser.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUser.Location = new Point(82, 127);
-            txtUser.Name = "txtUser";
-            txtUser.Size = new Size(355, 36);
-            txtUser.TabIndex = 1;
+            txtUserBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtUserBG.BorderStyle = BorderStyle.None;
+            txtUserBG.Enabled = false;
+            txtUserBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUserBG.Location = new Point(82, 127);
+            txtUserBG.Name = "txtUserBG";
+            txtUserBG.Size = new Size(355, 36);
+            txtUserBG.TabIndex = 1;
             // 
-            // txtEmail
+            // txtEmailBG
             // 
-            txtEmail.BackColor = Color.FromArgb(74, 74, 74);
-            txtEmail.BorderStyle = BorderStyle.None;
-            txtEmail.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(82, 197);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(355, 36);
-            txtEmail.TabIndex = 2;
+            txtEmailBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtEmailBG.BorderStyle = BorderStyle.None;
+            txtEmailBG.Enabled = false;
+            txtEmailBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmailBG.Location = new Point(82, 197);
+            txtEmailBG.Name = "txtEmailBG";
+            txtEmailBG.Size = new Size(355, 36);
+            txtEmailBG.TabIndex = 2;
             // 
-            // txtSenha
+            // txtSenhaBG
             // 
-            txtSenha.BackColor = Color.FromArgb(74, 74, 74);
-            txtSenha.BorderStyle = BorderStyle.None;
-            txtSenha.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSenha.Location = new Point(82, 267);
-            txtSenha.Name = "txtSenha";
-            txtSenha.Size = new Size(355, 36);
-            txtSenha.TabIndex = 3;
-            txtSenha.UseSystemPasswordChar = true;
+            txtSenhaBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtSenhaBG.BorderStyle = BorderStyle.None;
+            txtSenhaBG.Enabled = false;
+            txtSenhaBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSenhaBG.Location = new Point(82, 267);
+            txtSenhaBG.Name = "txtSenhaBG";
+            txtSenhaBG.Size = new Size(355, 36);
+            txtSenhaBG.TabIndex = 3;
+            txtSenhaBG.UseSystemPasswordChar = true;
             // 
-            // txtconfSenha
+            // txtconfSenhaBG
             // 
-            txtconfSenha.BackColor = Color.FromArgb(74, 74, 74);
-            txtconfSenha.BorderStyle = BorderStyle.None;
-            txtconfSenha.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtconfSenha.Location = new Point(82, 337);
-            txtconfSenha.Name = "txtconfSenha";
-            txtconfSenha.Size = new Size(355, 36);
-            txtconfSenha.TabIndex = 4;
-            txtconfSenha.UseSystemPasswordChar = true;
+            txtconfSenhaBG.BackColor = Color.FromArgb(51, 53, 59);
+            txtconfSenhaBG.BorderStyle = BorderStyle.None;
+            txtconfSenhaBG.Enabled = false;
+            txtconfSenhaBG.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtconfSenhaBG.Location = new Point(82, 337);
+            txtconfSenhaBG.Name = "txtconfSenhaBG";
+            txtconfSenhaBG.Size = new Size(355, 36);
+            txtconfSenhaBG.TabIndex = 4;
+            txtconfSenhaBG.UseSystemPasswordChar = true;
             // 
             // criarConta
             // 
@@ -172,18 +199,86 @@
             // 
             pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(484, 53);
+            pictureBox2.Location = new Point(468, 61);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(241, 385);
+            pictureBox2.Size = new Size(257, 384);
             pictureBox2.TabIndex = 16;
             pictureBox2.TabStop = false;
+            // 
+            // txtconfSenha
+            // 
+            txtconfSenha.BackColor = Color.FromArgb(51, 53, 59);
+            txtconfSenha.BorderStyle = BorderStyle.None;
+            txtconfSenha.Font = new Font("Segoe UI", 9.75F);
+            txtconfSenha.ForeColor = Color.White;
+            txtconfSenha.Location = new Point(87, 347);
+            txtconfSenha.Name = "txtconfSenha";
+            txtconfSenha.Size = new Size(347, 18);
+            txtconfSenha.TabIndex = 17;
+            txtconfSenha.UseSystemPasswordChar = true;
+            // 
+            // txtSenha
+            // 
+            txtSenha.BackColor = Color.FromArgb(51, 53, 59);
+            txtSenha.BorderStyle = BorderStyle.None;
+            txtSenha.Font = new Font("Segoe UI", 9.75F);
+            txtSenha.ForeColor = Color.White;
+            txtSenha.Location = new Point(87, 277);
+            txtSenha.Name = "txtSenha";
+            txtSenha.Size = new Size(347, 18);
+            txtSenha.TabIndex = 18;
+            txtSenha.UseSystemPasswordChar = true;
+            // 
+            // txtEmail
+            // 
+            txtEmail.BackColor = Color.FromArgb(51, 53, 59);
+            txtEmail.BorderStyle = BorderStyle.None;
+            txtEmail.Font = new Font("Segoe UI", 9.75F);
+            txtEmail.ForeColor = Color.White;
+            txtEmail.Location = new Point(87, 207);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(347, 18);
+            txtEmail.TabIndex = 19;
+            // 
+            // txtUser
+            // 
+            txtUser.BackColor = Color.FromArgb(51, 53, 59);
+            txtUser.BorderStyle = BorderStyle.None;
+            txtUser.Font = new Font("Segoe UI", 9.75F);
+            txtUser.ForeColor = Color.White;
+            txtUser.Location = new Point(87, 137);
+            txtUser.Name = "txtUser";
+            txtUser.Size = new Size(347, 18);
+            txtUser.TabIndex = 20;
+            txtUser.TextChanged += textBox4_TextChanged;
+            // 
+            // BackButton
+            // 
+            BackButton.ActiveLinkColor = Color.FromArgb(122, 122, 122);
+            BackButton.AutoSize = true;
+            BackButton.DisabledLinkColor = Color.FromArgb(122, 122, 122);
+            BackButton.ForeColor = Color.FromArgb(122, 122, 122);
+            BackButton.LinkColor = Color.FromArgb(122, 122, 122);
+            BackButton.Location = new Point(688, 479);
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(37, 15);
+            BackButton.TabIndex = 21;
+            BackButton.TabStop = true;
+            BackButton.Text = "Voltar";
+            BackButton.VisitedLinkColor = Color.FromArgb(122, 122, 122);
+            BackButton.LinkClicked += BackButton_LinkClicked;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(41, 41, 41);
+            BackColor = Color.FromArgb(33, 35, 40);
             ClientSize = new Size(768, 514);
+            Controls.Add(BackButton);
+            Controls.Add(txtUser);
+            Controls.Add(txtEmail);
+            Controls.Add(txtSenha);
+            Controls.Add(txtconfSenha);
             Controls.Add(pictureBox2);
             Controls.Add(verSenha);
             Controls.Add(label4);
@@ -191,11 +286,12 @@
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(criarConta);
-            Controls.Add(txtconfSenha);
-            Controls.Add(txtSenha);
-            Controls.Add(txtEmail);
-            Controls.Add(txtUser);
+            Controls.Add(txtconfSenhaBG);
+            Controls.Add(txtSenhaBG);
+            Controls.Add(txtEmailBG);
+            Controls.Add(txtUserBG);
             Controls.Add(pictureBox1);
+            ForeColor = Color.White;
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
             MinimizeBox = false;
@@ -210,16 +306,21 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private TextBox txtUser;
-        private TextBox txtEmail;
-        private TextBox txtSenha;
-        private TextBox txtconfSenha;
-        private Button criarConta;
+        private TextBox txtUserBG;
+        private TextBox txtEmailBG;
+        private TextBox txtSenhaBG;
+        private TextBox txtconfSenhaBG;
+        private GradientButton1 criarConta;
         private Label label2;
         private Label label1;
         private Label label3;
         private Label label4;
         private CheckBox verSenha;
         private PictureBox pictureBox2;
+        private TextBox txtconfSenha;
+        private TextBox txtSenha;
+        private TextBox txtEmail;
+        private TextBox txtUser;
+        private LinkLabel BackButton;
     }
 }

@@ -8,14 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace LoginSteam
 {
+
     public partial class Form2 : Form
     {
-        public Form2()
+        private string usuario;
+        private string senha;
+        public Form2(string user,string pass)
         {
             InitializeComponent();
+            this.usuario = user;
+            this.senha = pass;
         }
 
         private void createaccbutton_Click(object sender, EventArgs e)
@@ -24,6 +31,7 @@ namespace LoginSteam
             string email = txtEmail.Text;
             string senha = txtSenha.Text;
             string confsenha = txtconfSenha.Text;
+
 
             if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(senha) || string.IsNullOrWhiteSpace(confsenha))
             {
@@ -38,14 +46,13 @@ namespace LoginSteam
             }
 
             string filePath = Path.Combine(@"C:\DPL-2025\LoginSteam\LoginSteam", "dadosConta.txt");
-            string conteudo = $"Usuário: {user}\nEmail: {email}\nSenha: {senha}";
+            string conteudo = $"{user};{senha}";
 
             try
             {
                 using (StreamWriter writer = new StreamWriter(filePath, true))
                 {
                     writer.WriteLine(conteudo);
-                    writer.WriteLine("--------------------");
                 }
 
                 MessageBox.Show("Dados salvos com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -68,6 +75,23 @@ namespace LoginSteam
                 txtSenha.UseSystemPasswordChar = true;
                 txtconfSenha.UseSystemPasswordChar = true;
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackButton_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
         }
     }
 }
