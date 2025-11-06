@@ -1,4 +1,6 @@
 const express = require('express');
+const path = require('path');    // ← ADICIONAR ESTE
+const fs = require('fs');        // ← ADICIONAR ESTE
 const app = express();
 app.use(express.json());
 
