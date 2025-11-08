@@ -4,6 +4,8 @@ const fs = require('fs');
 const app = express();
 app.use(express.json());
 
+let usuariosAutenticados = [];
+
 //Rotas (endpoints da aplicação)
 app.get('/home', (req,res) =>{
     res.statusCode = 200;
@@ -23,6 +25,12 @@ app.post('/login', (req,res) =>{
     const horaAtual = dataHoraLogin.toLocaleTimeString('pt-BR');
 
     if(user){
+        usuariosAutenticados.push({
+            usuario: usuario,
+            dataLogin: dataAtual,
+            horaLogin: horaAtual
+        });
+        
         res.statusCode = 202;
         res.json({
             msg: "Autenticado com sucesso! Bem-vindo," + usuario + "!",
@@ -36,13 +44,26 @@ app.post('/login', (req,res) =>{
 });
 
 app.post('/data', (req,res) =>{
-    const {info} = req.body;
-    res.statusCode = 200;
-    let meuVetor = [];
+    const {usuario} = req.body;
     
-    if (meuVetor.includes())
-    res.json({msg : "Dados recebidos com sucesso!", data: info});
-}
+    // Verifica se o usuário está autenticado
+    const usuarioAutenticado = usuariosAutenticados.find(u => u.usuario === usuario);
+    
+    if(usuarioAutenticado){
+        res.statusCode = 200;
+        res.json({
+            msg: "Informações do usuário autenticado:",
+            usuario: usuarioAutenticado.usuario,
+            dataLogin: usuarioAutenticado.dataLogin,
+            horaLogin: usuarioAutenticado.horaLogin
+        });
+    } else {
+        res.statusCode = 401;
+        res.json({
+            msg: "Usuário não está autenticado. Faça login primeiro."
+        });
+    }
+});
 
 app.listen(3000);
 console.log('Servidor rodando na porta 3000');
